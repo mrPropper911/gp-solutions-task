@@ -1,9 +1,9 @@
 package by.belyahovich.bookingdemo.repository;
 
 import by.belyahovich.bookingdemo.domain.Hotel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
 
 public class HotelRepositoryPostgreSqlImpl implements HotelRepository{
@@ -11,6 +11,11 @@ public class HotelRepositoryPostgreSqlImpl implements HotelRepository{
 
     public HotelRepositoryPostgreSqlImpl(HotelJpaRepository hotelJpaRepository) {
         this.hotelJpaRepository = hotelJpaRepository;
+    }
+
+    @Override
+    public List<Hotel> findAll(Specification<Hotel> specification) {
+        return hotelJpaRepository.findAll(specification);
     }
 
     @Override
