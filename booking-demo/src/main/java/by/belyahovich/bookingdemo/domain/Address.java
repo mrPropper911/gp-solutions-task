@@ -25,4 +25,9 @@ public class Address {
 
     @OneToOne(mappedBy = "address")
     private Hotel hotel;
+
+    public String getFullAddress() {
+        return houseNumber + " " + street + ", " +
+                city + ", " + county + ", " + postCode;
+    }
 }

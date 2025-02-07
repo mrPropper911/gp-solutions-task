@@ -15,8 +15,23 @@ public class HotelRepositoryMySqlImpl implements HotelRepository {
     }
 
     @Override
+    public Hotel save(Hotel hotel) {
+        return hotelJpaRepository.save(hotel);
+    }
+
+    @Override
+    public List<Hotel> findAll() {
+        return hotelJpaRepository.findAll();
+    }
+
+    @Override
     public List<Hotel> findAll(Specification<Hotel> specification) {
         return hotelJpaRepository.findAll(specification);
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return hotelJpaRepository.findByName(name).isPresent();
     }
 
     @Override

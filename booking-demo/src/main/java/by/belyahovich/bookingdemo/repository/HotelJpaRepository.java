@@ -9,5 +9,7 @@ import java.util.Optional;
 
 public interface HotelJpaRepository extends JpaRepository<Hotel, Long>,
         JpaSpecificationExecutor<Hotel> {
+    Optional<Hotel> findByName(String name);
+
     Optional<Hotel> findAllByAddress(Address address);
 }

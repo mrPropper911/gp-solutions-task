@@ -1,11 +1,11 @@
 package by.belyahovich.bookingdemo.controller;
 
 import by.belyahovich.bookingdemo.domain.Hotel;
+import by.belyahovich.bookingdemo.dto.HotelShortInfoDto;
 import by.belyahovich.bookingdemo.service.HotelService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +17,17 @@ public class HotelController {
 
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
+    }
+
+    @GetMapping("/hotels")
+    public List<HotelShortInfoDto> getAllHotels() {
+       return hotelService.getAllHotelsWithShortInfo();
+    }
+
+    @PostMapping("/hotels")
+    public ResponseEntity<?> saveHotel(@RequestBody Hotel hotel){
+        HotelShortInfoDto hotelShortInfoDto = hotelService.saveHotel(hotel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(hotelShortInfoDto);
     }
 
     @GetMapping("/search")

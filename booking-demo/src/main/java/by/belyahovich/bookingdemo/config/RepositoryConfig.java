@@ -26,5 +26,11 @@ public class RepositoryConfig {
         return new HotelRepositoryPostgreSqlImpl(hotelJpaRepository);
     }
 
+//    @Bean
+//    @Profile("h2-test")
+//    public HotelMapper hotelMapper() {
+//        return Mappers.getMapper(HotelMapper.class);
+//    }
+
 
 }
