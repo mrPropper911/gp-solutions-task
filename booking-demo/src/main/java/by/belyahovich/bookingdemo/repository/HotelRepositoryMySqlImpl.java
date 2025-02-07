@@ -36,8 +36,6 @@ public class HotelRepositoryMySqlImpl implements HotelRepository {
 
     @Override
     public Optional<Hotel> findById(Long id) {
-        Optional<Hotel> byId = hotelJpaRepository.findById(id);
-        Optional<Hotel> awd = hotelJpaRepository.findAllByAddress(new Address());
-        return Optional.empty();
+        return hotelJpaRepository.findById(id);
     }
 }

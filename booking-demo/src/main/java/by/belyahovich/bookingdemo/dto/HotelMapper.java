@@ -1,6 +1,8 @@
 package by.belyahovich.bookingdemo.dto;
 
 import by.belyahovich.bookingdemo.domain.Address;
+import by.belyahovich.bookingdemo.domain.ArrivalTime;
+import by.belyahovich.bookingdemo.domain.Contacts;
 import by.belyahovich.bookingdemo.domain.Hotel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,4 +24,15 @@ public interface HotelMapper {
         }
         return hotel.getAddress().getFullAddress();
     }
+
+    @Mapping(target = "address", source = "hotel.address")
+    @Mapping(target = "contacts", source = "hotel.contacts")
+    @Mapping(target = "arrivalTime", source = "hotel.arrivalTime")
+    HotelDto toHotelDto(Hotel hotel);
+
+    AddressDto toAddressDto(Address address);
+
+    ContactsDto toContactsDto(Contacts contacts);
+
+    ArrivalTimeDto toArrivalTimeDto(ArrivalTime arrivalTime);
 }

@@ -1,9 +1,11 @@
 package by.belyahovich.bookingdemo.service;
 
 import by.belyahovich.bookingdemo.domain.Hotel;
+import by.belyahovich.bookingdemo.dto.HotelDto;
 import by.belyahovich.bookingdemo.dto.HotelMapper;
 import by.belyahovich.bookingdemo.dto.HotelShortInfoDto;
 import by.belyahovich.bookingdemo.exception.EntityAlreadyExistsException;
+import by.belyahovich.bookingdemo.exception.EntityNotFoundException;
 import by.belyahovich.bookingdemo.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,16 +33,22 @@ public class HotelService {
                 .collect(Collectors.toList());
     }
 
+    public HotelDto getHotelById(Long id) {
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel with ID: " + id + " not found"));
+        return hotelMapper.toHotelDto(hotel);
+    }
+
     //todo проверить transactional
     @Transactional
-    public HotelShortInfoDto saveHotel(Hotel hotel){
-        if (hotelRepository.existsByName(hotel.getName())){
-            throw new EntityAlreadyExistsException("Hotel already exists");
+    public HotelShortInfoDto saveHotel(Hotel hotel) {
+        if (hotelRepository.existsByName(hotel.getName())) {
+            throw new EntityAlreadyExistsException("Hotel with name: " + hotel.getName() + " already exists");
         }
         return hotelMapper.toHotelShortInfoDto(hotelRepository.save(hotel));
     }
 
-    public List<Hotel> searchHotel(String name, String brand, String city){
+    public List<Hotel> searchHotel(String name, String brand, String city) {
         Specification<Hotel> specification = Specification
                 .where(name == null ? null : HotelSpecifications.hasName(name))
                 .and(brand == null ? null : HotelSpecifications.hasBrand(brand))
