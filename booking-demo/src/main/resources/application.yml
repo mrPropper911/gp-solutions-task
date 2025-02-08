@@ -1,6 +1,10 @@
 server:
   port: 8092
 
+application:
+  title: Booking Demo Api
+  version: 1.0.0
+
 spring:
   application:
     name: booking-demo
