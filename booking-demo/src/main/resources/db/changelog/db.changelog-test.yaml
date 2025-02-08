@@ -153,6 +153,7 @@ databaseChangeLog:
               - column:
                   name: brand
                   value: "Brand A"
+
         - insert:
             tableName: hotels
             columns:

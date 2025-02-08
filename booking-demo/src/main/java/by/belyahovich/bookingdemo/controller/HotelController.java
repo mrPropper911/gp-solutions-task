@@ -41,17 +41,20 @@ public class HotelController {
 
     @PostMapping("/hotels/{id}/amenities")
     public ResponseEntity<Void> addAmenitiesToHotel(@PathVariable Long id,
-                                                    @RequestBody List<String> amenities){
+                                                    @RequestBody List<String> amenities) {
         hotelService.addAmenitiesToHotel(id, amenities);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/search")
-    public List<Hotel> searchHotels(
+    public ResponseEntity<List<HotelShortInfoDto>> searchHotels(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String brand,
-            @RequestParam(required = false) String city) {
-        return hotelService.searchHotel(name, brand, city);
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String county,
+            @RequestParam(required = false) String amenities) {
+        List<HotelShortInfoDto> hotels =
+                hotelService.searchHotel(name, brand, city, county, amenities);
+        return ResponseEntity.status(HttpStatus.OK).body(hotels);
     }
-
 }

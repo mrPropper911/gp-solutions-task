@@ -46,7 +46,7 @@ public class HotelService {
         return hotelMapper.toHotelDto(hotel);
     }
 
-    //todo проверить transactional
+    //todo проверить transactional и сделать existsByName изменить на name && city
     @Transactional
     public HotelShortInfoDto saveHotel(Hotel hotel) {
         if (hotelRepository.existsByName(hotel.getName())) {
@@ -76,11 +76,16 @@ public class HotelService {
                 .collect(Collectors.toSet());
     }
 
-    public List<Hotel> searchHotel(String name, String brand, String city) {
+    public List<HotelShortInfoDto> searchHotel(String name, String brand, String city,
+                                               String county, String amenities) {
         Specification<Hotel> specification = Specification
-                .where(name == null ? null : HotelSpecifications.hasName(name))
-                .and(brand == null ? null : HotelSpecifications.hasBrand(brand))
-                .and(city == null ? null : HotelSpecifications.hasCity(city));
-        return hotelRepository.findAll(specification);
+                .where(HotelSpecifications.likeName(name))
+                .and(HotelSpecifications.likeBrand(brand))
+                .and(HotelSpecifications.likeCity(city))
+                .and(HotelSpecifications.likeCounty(county))
+                .and(HotelSpecifications.likeAmenities(amenities));
+        return hotelRepository.findAll(specification).stream()
+                .map(hotelMapper::toHotelShortInfoDto)
+                .collect(Collectors.toList());
     }
 }
