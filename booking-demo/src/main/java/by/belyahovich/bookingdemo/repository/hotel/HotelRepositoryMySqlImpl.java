@@ -1,6 +1,7 @@
 package by.belyahovich.bookingdemo.repository.hotel;
 
 import by.belyahovich.bookingdemo.domain.Hotel;
+import by.belyahovich.bookingdemo.dto.HistogramDto;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -36,5 +37,25 @@ public class HotelRepositoryMySqlImpl implements HotelRepository {
     @Override
     public Optional<Hotel> findById(Long id) {
         return hotelJpaRepository.findById(id);
+    }
+
+    @Override
+    public List<HistogramDto> getBrandHistogram() {
+        return hotelJpaRepository.getBrandHistogram();
+    }
+
+    @Override
+    public List<HistogramDto> getCityHistogram() {
+        return hotelJpaRepository.getCityHistogram();
+    }
+
+    @Override
+    public List<HistogramDto> getCountyHistogram() {
+        return hotelJpaRepository.getCountyHistogram();
+    }
+
+    @Override
+    public List<HistogramDto> getAmenitiesHistogram() {
+        return hotelJpaRepository.getAmenitiesHistogram();
     }
 }
