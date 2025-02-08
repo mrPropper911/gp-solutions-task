@@ -1,4 +1,4 @@
-package by.belyahovich.bookingdemo.repository;
+package by.belyahovich.bookingdemo.repository.hotel;
 
 import by.belyahovich.bookingdemo.domain.Hotel;
 import org.springframework.data.jpa.domain.Specification;
@@ -6,10 +6,10 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.List;
 import java.util.Optional;
 
-public class HotelRepositoryPostgreSqlImpl implements HotelRepository{
+public class HotelRepositoryH2Impl implements HotelRepository {
     private final HotelJpaRepository hotelJpaRepository;
 
-    public HotelRepositoryPostgreSqlImpl(HotelJpaRepository hotelJpaRepository) {
+    public HotelRepositoryH2Impl(HotelJpaRepository hotelJpaRepository) {
         this.hotelJpaRepository = hotelJpaRepository;
     }
 

@@ -1,4 +1,4 @@
-package by.belyahovich.bookingdemo.repository;
+package by.belyahovich.bookingdemo.repository.hotel;
 
 import by.belyahovich.bookingdemo.domain.Address;
 import by.belyahovich.bookingdemo.domain.Hotel;

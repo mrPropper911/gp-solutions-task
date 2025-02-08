@@ -63,21 +63,3 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
-
----
-# Profile for test with PostgreSql
-spring:
-  config:
-    activate:
-      on-profile: postgresql-test
-  datasource:
-    url: jdbc:postgresql://localhost:5432/booking-demo
-    driver-class-name: org.postgresql.Driver
-    username: root
-    password: root
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: create-drop
-  liquibase:
-    enabled: false

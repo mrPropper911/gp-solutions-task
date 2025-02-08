@@ -1,4 +1,4 @@
-package by.belyahovich.bookingdemo.repository;
+package by.belyahovich.bookingdemo.repository.hotel;
 
 import by.belyahovich.bookingdemo.domain.Hotel;
 import org.springframework.data.jpa.domain.Specification;

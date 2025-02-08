@@ -3,6 +3,7 @@ package by.belyahovich.bookingdemo.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -22,22 +23,24 @@ public class Hotel {
     private String description;
     private String brand;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contacts_id", referencedColumnName = "id")
     private Contacts contacts;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "arrival_time_id", referencedColumnName = "id")
     private ArrivalTime arrivalTime;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "hotel_amenities",
-            joinColumns = @JoinColumn(name = "hotel_id"))
-    @Column(name = "amenities")
-    private Set<String> amenities;
+    @ManyToMany
+    @JoinTable(
+            name = "hotels_amenities",
+            joinColumns = @JoinColumn(name = "hotels_id"),
+            inverseJoinColumns = @JoinColumn(name = "amenities_id")
+    )
+    private Set<Amenity> amenities = new HashSet<>();
+
 }

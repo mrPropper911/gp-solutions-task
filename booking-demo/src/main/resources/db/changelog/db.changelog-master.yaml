@@ -1,9 +1,27 @@
 databaseChangeLog:
   - logicalFilePath: db/changelog/db.changelog-master.yaml
+
   - changeSet:
       id: 1
       author: vadim_belyahovich
       changes:
+        - createTable:
+            tableName: amenities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
         - createTable:
             tableName: hotels
             columns:
@@ -97,14 +115,24 @@ databaseChangeLog:
                   type: varchar(10)
 
         - createTable:
-            tableName: hotel_amenities
+            tableName: hotels_amenities
             columns:
               - column:
-                  name: hotel_id
+                  name: hotels_id
                   type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_hotels_amenities_hotel
+                    references: hotels(id)
               - column:
-                  name: index
+                  name: amenities_id
                   type: bigint
-              - column:
-                  name: amenities
-                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_hotels_amenities_amenities
+                    references: amenities(id)
+
+        - addUniqueConstraint:
+            tableName: hotels_amenities
+            constraintName: uk_hotels_amenities
+            columnNames: hotels_id, amenities_id

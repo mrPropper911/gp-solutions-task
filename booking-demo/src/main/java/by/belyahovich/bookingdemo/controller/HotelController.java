@@ -20,16 +20,30 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    //todo response
     @GetMapping("/hotels")
-    public List<HotelShortInfoDto> getAllHotels() {
-       return hotelService.getAllHotelsWithShortInfo();
+    public ResponseEntity<List<HotelShortInfoDto>> getAllHotels() {
+        List<HotelShortInfoDto> hotelsWithShortInfo =
+                hotelService.getAllHotelsWithShortInfo();
+        return ResponseEntity.status(HttpStatus.OK).body(hotelsWithShortInfo);
     }
 
     @GetMapping("/hotels/{id}")
-    public ResponseEntity<HotelDto> getHotelById(@PathVariable Long id){
+    public ResponseEntity<HotelDto> getHotelById(@PathVariable Long id) {
         HotelDto hotelDto = hotelService.getHotelById(id);
         return ResponseEntity.status(HttpStatus.OK).body(hotelDto);
+    }
+
+    @PostMapping("/hotels")
+    public ResponseEntity<HotelShortInfoDto> saveHotel(@RequestBody Hotel hotel) {
+        HotelShortInfoDto hotelShortInfoDto = hotelService.saveHotel(hotel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(hotelShortInfoDto);
+    }
+
+    @PostMapping("/hotels/{id}/amenities")
+    public ResponseEntity<Void> addAmenitiesToHotel(@PathVariable Long id,
+                                                    @RequestBody List<String> amenities){
+        hotelService.addAmenitiesToHotel(id, amenities);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/search")
@@ -38,12 +52,6 @@ public class HotelController {
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) String city) {
         return hotelService.searchHotel(name, brand, city);
-    }
-
-    @PostMapping("/hotels")
-    public ResponseEntity<HotelShortInfoDto> saveHotel(@RequestBody Hotel hotel){
-        HotelShortInfoDto hotelShortInfoDto = hotelService.saveHotel(hotel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(hotelShortInfoDto);
     }
 
 }

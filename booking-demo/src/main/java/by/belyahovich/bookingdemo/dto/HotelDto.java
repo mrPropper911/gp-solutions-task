@@ -3,7 +3,8 @@ package by.belyahovich.bookingdemo.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,5 +15,5 @@ public class HotelDto {
     private AddressDto address;
     private ContactsDto contacts;
     private ArrivalTimeDto arrivalTime;
-    private Set<String> amenities;
+    private List<String> amenities = new ArrayList<>();
 }
