@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "04026bcd-c580-4e69-92ee-9b52b1304872",
+		"name": "Booking-demo",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30802887"
+	},
+	"item": [
+		{
+			"name": "Find all hotels with short info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/property-view/hotels",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"hotels"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Find hotel by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/property-view/hotels/3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"hotels",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save new hotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"DoubleTree by Hilton Minsk12121\",\n    \"description\": \"The DoubleTree by Hilton Hotel Minsk offers 193 luxurious rooms in the Belorussian capital and stunning views of Minsk city from the hotel's 20th floor ...\",\n    \"brand\": \"Hilton\",\n    \"address\": \n        {\n            \"houseNumber\": 9,\n            \"street\": \"Pobediteley Avenue\",\n            \"city\": \"Minsk\",\n            \"county\": \"Belarus\",\n            \"postCode\": \"220004\"\n        },\n    \"contacts\": \n        {\n            \"phone\": \"+375 17 309-80-00\",\n            \"email\": \"doubletreeminsk.info@hilton.com\"\n        },\n    \"arrivalTime\":\n        {\n            \"checkIn\": \"14:00\",\n            \"checkOut\": \"12:00\"\n        }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/hotels",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"hotels"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Add amenities to hotel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/hotels/3/amenities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"hotels",
+						"3",
+						"amenities"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Get histogram by brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/histogram/brand",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"histogram",
+						"brand"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Get histogram by city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/histogram/city",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"histogram",
+						"city"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Get histogram by conty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/histogram/county",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"histogram",
+						"county"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Get histogram by amenity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/histogram/amenities",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"histogram",
+						"amenities"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Search by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/search?name=awd",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "awd"
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Search by brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/search?brand=",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"search"
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": ""
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Search by city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/search?brand=",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"search"
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": ""
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Search by county",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/search?county=",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"search"
+					],
+					"query": [
+						{
+							"key": "county",
+							"value": ""
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Search by amenities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"Free parking\",\n    \"Free WiFi\",\n    \"Non-smoking rooms\",\n    \"Concierge\",\n    \"On-site restaurant\",\n    \"Fitness center\",\n    \"Pet-friendly rooms\",\n    \"Room service\",\n    \"Business center\",\n    \"Meeting rooms\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/property-view/search?amenities=",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"property-view",
+						"search"
+					],
+					"query": [
+						{
+							"key": "amenities",
+							"value": ""
+						}
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
