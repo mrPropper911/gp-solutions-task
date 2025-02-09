@@ -39,16 +39,16 @@ spring:
     activate:
       on-profile: mysql-test
   datasource:
-    url: jdbc:mysql://localhost:3306/booking-demo
+    url: jdbc:mysql://localhost:3306/booking_demo
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: qwer4321
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
   liquibase:
-    enabled: false
+    change-log: classpath:db/changelog/db.changelog-test.yaml
 
 ---
 # Profile for prod with MySql
@@ -57,10 +57,10 @@ spring:
     activate:
       on-profile: mysql-prod
   datasource:
-    url: jdbc:mysql://localhost:3306/booking-demo
+    url: jdbc:mysql://localhost:3306/booking_demo
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    username:
+    password:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
