@@ -4,20 +4,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
-@Schema(description = "Hotel entity")
-public class HotelDto {
-    @Schema(description = "Unique hotel identifier",
-            accessMode = Schema.AccessMode.READ_ONLY)
-    private Long id;
-
+@Schema(description = "Entity with the required fields to create a hotel")
+public class HotelCreateDto {
     @Schema(description = "Hotel name",
             example = "DoubleTree by Hilton Minsk")
     private String name;
+
+    @Schema(description = "Full description of the hotel",
+            example = "The DoubleTree by Hilton Hotel Minsk offers 193 luxurious rooms in ...")
+    private String description;
 
     @Schema(description = "The brand to which the hotel belongs",
             example = "Hilton")
@@ -31,10 +28,4 @@ public class HotelDto {
 
     @Schema(description = "Check-in and check-out times from the hotel")
     private ArrivalTimeDto arrivalTime;
-
-    @Schema(description = "Amenities located at the hotel",
-            type = "array",
-            implementation = String.class,
-            example = "[\"Free parking\", \"Free WiFi\", \"Non-smoking rooms\"]")
-    private List<String> amenities = new ArrayList<>();
 }

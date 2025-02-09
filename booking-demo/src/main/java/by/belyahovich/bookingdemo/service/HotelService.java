@@ -2,6 +2,7 @@ package by.belyahovich.bookingdemo.service;
 
 import by.belyahovich.bookingdemo.domain.Amenity;
 import by.belyahovich.bookingdemo.domain.Hotel;
+import by.belyahovich.bookingdemo.dto.HotelCreateDto;
 import by.belyahovich.bookingdemo.dto.HotelDto;
 import by.belyahovich.bookingdemo.dto.HotelMapper;
 import by.belyahovich.bookingdemo.dto.HotelShortInfoDto;
@@ -40,7 +41,7 @@ public class HotelService {
     }
 
     public HotelDto getHotelById(Long id) {
-        Hotel hotel = hotelRepository.findById(id)
+        var hotel = hotelRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Hotel with ID: " +
                         id + " not found"));
         return hotelMapper.toHotelDto(hotel);
@@ -48,16 +49,18 @@ public class HotelService {
 
     //todo проверить transactional и сделать existsByName изменить на name && city
     @Transactional
-    public HotelShortInfoDto saveHotel(Hotel hotel) {
-        if (hotelRepository.existsByName(hotel.getName())) {
+    public HotelShortInfoDto saveHotel(HotelCreateDto hotelCreateDto) {
+        if (hotelRepository.existsByName(hotelCreateDto.getName())) {
             throw new EntityAlreadyExistsException("Hotel with name: " +
-                    hotel.getName() + " already exists");
+                    hotelCreateDto.getName() + " already exists");
         }
-        return hotelMapper.toHotelShortInfoDto(hotelRepository.save(hotel));
+        var hotel = hotelMapper.toHotel(hotelCreateDto);
+        var savedHotel = hotelRepository.save(hotel);
+        return hotelMapper.toHotelShortInfoDto(savedHotel);
     }
 
     public void addAmenitiesToHotel(Long id, List<String> amenities) {
-        Hotel hotel = hotelRepository.findById(id)
+        var hotel = hotelRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Hotel not found"));
         Set<Amenity> amenitiesToAdd = findOrCreateAmenities(amenities);
         hotel.getAmenities().addAll(amenitiesToAdd);

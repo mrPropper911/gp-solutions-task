@@ -1,21 +1,29 @@
 package by.belyahovich.bookingdemo.controller;
 
-import by.belyahovich.bookingdemo.domain.Hotel;
+import by.belyahovich.bookingdemo.dto.HotelCreateDto;
 import by.belyahovich.bookingdemo.dto.HotelDto;
 import by.belyahovich.bookingdemo.dto.HotelShortInfoDto;
 import by.belyahovich.bookingdemo.service.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/property-view")
+@Validated
 @Tag(name = "Hotel", description = "Interaction with hotels")
 public class HotelController {
     private final HotelService hotelService;
@@ -41,8 +49,9 @@ public class HotelController {
     )
     @GetMapping(value = "/hotels/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HotelDto> getHotelById(
-            @PathVariable
-            @Parameter(description = "Search hotel id", required = true) Long id) {
+            @PathVariable @NotBlank @Min(1) @Parameter(
+                    description = "Search hotel id",
+                    required = true) Long id) {
         HotelDto hotelDto = hotelService.getHotelById(id);
         return ResponseEntity.status(HttpStatus.OK).body(hotelDto);
     }
@@ -53,7 +62,9 @@ public class HotelController {
     )
     @PostMapping(value = "/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HotelShortInfoDto> saveHotel(
-            @RequestBody @Parameter(description = "Entity of new hotel") Hotel hotel) {
+            @RequestBody @Valid @NotNull @Parameter(
+                    description = "Entity of new hotel",
+                    required = true) HotelCreateDto hotel) {
         HotelShortInfoDto hotelShortInfoDto = hotelService.saveHotel(hotel);
         return ResponseEntity.status(HttpStatus.CREATED).body(hotelShortInfoDto);
     }
@@ -64,11 +75,18 @@ public class HotelController {
     )
     @PostMapping(value = "/hotels/{id}/amenities", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addAmenitiesToHotel(
-            @PathVariable @Parameter(
-                    description = "ID of the hotel to which the amenities will be added") Long id,
-            @RequestBody @Parameter(
+            @PathVariable @NotBlank @Min(1) @Parameter(
+                    description = "ID of the hotel to which the amenities will be added",
+                    required = true) Long id,
+            @RequestBody @Valid @NotNull @Parameter(
                     description = "List of amenities, when adding an amenity it is searched in the database," +
-                            " if it is not there it will be created and added to the hotel") List<String> amenities) {
+                            " if it is not there it will be created and added to the hotel")
+            @ArraySchema(
+                    schema = @Schema(description = "Amenity name",
+                            example = "Free parking"),
+                    arraySchema = @Schema(description = "List of amenities",
+                            example = "[\"Free parking\", \"Free WiFi\", \"Non-smoking rooms\"]")
+            ) List<String> amenities) {
         hotelService.addAmenitiesToHotel(id, amenities);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

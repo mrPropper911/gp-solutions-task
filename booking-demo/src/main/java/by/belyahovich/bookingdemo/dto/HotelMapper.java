@@ -35,6 +35,11 @@ public interface HotelMapper {
     @Mapping(target = "phone", source = "contacts.phone")
     HotelShortInfoDto toHotelShortInfoDto(Hotel hotel);
 
+    @Mapping(target = "address", source = "address")
+    @Mapping(target = "contacts", source = "contacts")
+    @Mapping(target = "arrivalTime", source = "arrivalTime")
+    Hotel toHotel(HotelCreateDto hotelCreateDto);
+
     @Named("mapAddress")
     default String mapAddress(Hotel hotel) {
         if (hotel.getAddress() == null) {
