@@ -31,14 +31,9 @@ public interface HotelMapper {
                 .collect(Collectors.toList());
     }
 
-    @Mapping(target = "address", source = "hotel", qualifiedByName = "mapAddress")
+    @Mapping(target = "address", expression = "java(mapAddress(hotel))")
     @Mapping(target = "phone", source = "contacts.phone")
     HotelShortInfoDto toHotelShortInfoDto(Hotel hotel);
-
-    @Mapping(target = "address", source = "address")
-    @Mapping(target = "contacts", source = "contacts")
-    @Mapping(target = "arrivalTime", source = "arrivalTime")
-    Hotel toHotel(HotelCreateDto hotelCreateDto);
 
     @Named("mapAddress")
     default String mapAddress(Hotel hotel) {
@@ -47,6 +42,11 @@ public interface HotelMapper {
         }
         return hotel.getAddress().getFullAddress();
     }
+
+    @Mapping(target = "address", source = "address")
+    @Mapping(target = "contacts", source = "contacts")
+    @Mapping(target = "arrivalTime", source = "arrivalTime")
+    Hotel toHotel(HotelCreateDto hotelCreateDto);
 
     AddressDto toAddressDto(Address address);
 

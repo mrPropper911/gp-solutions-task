@@ -28,6 +28,6 @@ public class Address {
 
     public String getFullAddress() {
         return houseNumber + " " + street + ", " +
-                city + ", " + county + ", " + postCode;
+                city + ", " + postCode + ", " + county;
     }
 }

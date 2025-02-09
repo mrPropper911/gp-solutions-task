@@ -137,32 +137,32 @@ databaseChangeLog:
             constraintName: uk_hotels_amenities
             columnNames: hotels_id, amenities_id
 
-  - changeSet:
-      id: 2
-      author: vadim_belyahovich
-      changes:
-        - insert:
-            tableName: hotels
-            columns:
-              - column:
-                  name: name
-                  value: "Hotel A"
-              - column:
-                  name: description
-                  value: "Description A"
-              - column:
-                  name: brand
-                  value: "Brand A"
-
-        - insert:
-            tableName: hotels
-            columns:
-              - column:
-                  name: name
-                  value: "Hotel B"
-              - column:
-                  name: description
-                  value: "Description B"
-              - column:
-                  name: brand
-                  value: "Brand B"
+#  - changeSet:
+#      id: 2
+#      author: vadim_belyahovich
+#      changes:
+#        - insert:
+#            tableName: hotels
+#            columns:
+#              - column:
+#                  name: name
+#                  value: "Hotel A"
+#              - column:
+#                  name: description
+#                  value: "Description A"
+#              - column:
+#                  name: brand
+#                  value: "Brand A"
+#
+#        - insert:
+#            tableName: hotels
+#            columns:
+#              - column:
+#                  name: name
+#                  value: "Hotel B"
+#              - column:
+#                  name: description
+#                  value: "Description B"
+#              - column:
+#                  name: brand
+#                  value: "Brand B"

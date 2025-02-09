@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +24,10 @@ import java.util.List;
 @RequestMapping("/property-view")
 @Validated
 @Tag(name = "Hotel", description = "Interaction with hotels")
-public class HotelController {
+public class HotelRestController {
     private final HotelService hotelService;
 
-    public HotelController(HotelService hotelService) {
+    public HotelRestController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
 
@@ -49,7 +48,7 @@ public class HotelController {
     )
     @GetMapping(value = "/hotels/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HotelDto> getHotelById(
-            @PathVariable @NotBlank @Min(1) @Parameter(
+            @PathVariable @NotNull @Min(1) @Parameter(
                     description = "Search hotel id",
                     required = true) Long id) {
         HotelDto hotelDto = hotelService.getHotelById(id);
@@ -75,7 +74,7 @@ public class HotelController {
     )
     @PostMapping(value = "/hotels/{id}/amenities", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addAmenitiesToHotel(
-            @PathVariable @NotBlank @Min(1) @Parameter(
+            @PathVariable @NotNull @Min(1) @Parameter(
                     description = "ID of the hotel to which the amenities will be added",
                     required = true) Long id,
             @RequestBody @Valid @NotNull @Parameter(

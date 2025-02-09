@@ -23,10 +23,10 @@ import java.util.Map;
 @RequestMapping("/property-view")
 @Validated
 @Tag(name = "Hotels histogram", description = "Interaction with hotels histogram")
-public class HistogramController {
+public class HistogramRestController {
     private final HistogramService histogramService;
 
-    public HistogramController(HistogramService histogramService) {
+    public HistogramRestController(HistogramService histogramService) {
         this.histogramService = histogramService;
     }
 

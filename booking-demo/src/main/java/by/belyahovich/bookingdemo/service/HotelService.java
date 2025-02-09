@@ -47,7 +47,6 @@ public class HotelService {
         return hotelMapper.toHotelDto(hotel);
     }
 
-    //todo проверить transactional и сделать existsByName изменить на name && city
     @Transactional
     public HotelShortInfoDto saveHotel(HotelCreateDto hotelCreateDto) {
         if (hotelRepository.existsByName(hotelCreateDto.getName())) {
@@ -63,11 +62,15 @@ public class HotelService {
         var hotel = hotelRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Hotel not found"));
         Set<Amenity> amenitiesToAdd = findOrCreateAmenities(amenities);
-        hotel.getAmenities().addAll(amenitiesToAdd);
+        if (hotel.getAmenities() == null) {
+            hotel.setAmenities(amenitiesToAdd);
+        } else {
+            hotel.getAmenities().addAll(amenitiesToAdd);
+        }
         hotelRepository.save(hotel);
     }
 
-    private Set<Amenity> findOrCreateAmenities(List<String> amenities){
+    private Set<Amenity> findOrCreateAmenities(List<String> amenities) {
         return amenities.stream()
                 .map(name -> amenityRepository.findByName(name)
                         .orElseGet(() -> {
