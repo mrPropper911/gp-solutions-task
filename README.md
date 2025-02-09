@@ -47,3 +47,7 @@ The OpenApi is available at http://localhost:8092/swagger-ui/index.html
 ### Booking Demo Api Doc
 
 ![Swagger api](images/swagger.png)
+
+### Test result
+
+![Swagger api](images/testresult.png)

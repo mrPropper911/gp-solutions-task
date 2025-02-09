@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/property-view")
 @Validated
-@Tag(name = "Hotels histogram", description = "Interaction with hotels histogram")
+@Tag(name = "Histogram", description = "Interaction with histogram")
 public class HistogramRestController {
     private final HistogramService histogramService;
 
@@ -40,7 +40,7 @@ public class HistogramRestController {
                             description = "Histogram data",
                             content = @Content(
                                     schema = @Schema(
-                                            example = "{\"Minsk\": 1, \"Moskow\": 2, \"Mogilev\": 0}"
+                                            example = "{\"Minsk\": 1, \"Moscow\": 2, \"Brest\": 0}"
                                     )
                             )
                     )

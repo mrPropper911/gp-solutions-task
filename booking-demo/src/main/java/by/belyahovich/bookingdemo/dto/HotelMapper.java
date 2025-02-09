@@ -22,8 +22,8 @@ public interface HotelMapper {
     HotelDto toHotelDto(Hotel hotel);
 
     @Named("mapAmenitiesToStrList")
-    default List<String> mapAmenitiesToStrList(Set<Amenity> amenities){
-        if (amenities == null || amenities.isEmpty()){
+    default List<String> mapAmenitiesToStrList(Set<Amenity> amenities) {
+        if (amenities == null || amenities.isEmpty()) {
             return Collections.emptyList();
         }
         return amenities.stream()

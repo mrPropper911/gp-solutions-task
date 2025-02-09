@@ -61,7 +61,7 @@ public class HotelRestController {
     )
     @PostMapping(value = "/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HotelShortInfoDto> saveHotel(
-            @RequestBody @Valid @NotNull @Parameter(
+            @RequestBody @Valid @Parameter(
                     description = "Entity of new hotel",
                     required = true) HotelCreateDto hotel) {
         HotelShortInfoDto hotelShortInfoDto = hotelService.saveHotel(hotel);
@@ -77,7 +77,7 @@ public class HotelRestController {
             @PathVariable @NotNull @Min(1) @Parameter(
                     description = "ID of the hotel to which the amenities will be added",
                     required = true) Long id,
-            @RequestBody @Valid @NotNull @Parameter(
+            @RequestBody @Valid @Parameter(
                     description = "List of amenities, when adding an amenity it is searched in the database," +
                             " if it is not there it will be created and added to the hotel")
             @ArraySchema(

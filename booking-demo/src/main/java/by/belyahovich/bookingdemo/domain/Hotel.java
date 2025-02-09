@@ -20,6 +20,7 @@ public class Hotel {
 
     @Column(unique = true, nullable = false)
     private String name;
+
     private String description;
     private String brand;
 
@@ -42,5 +43,4 @@ public class Hotel {
             inverseJoinColumns = @JoinColumn(name = "amenities_id")
     )
     private Set<Amenity> amenities = new HashSet<>();
-
 }

@@ -58,6 +58,7 @@ public class HotelService {
         return hotelMapper.toHotelShortInfoDto(savedHotel);
     }
 
+    @Transactional
     public void addAmenitiesToHotel(Long id, List<String> amenities) {
         var hotel = hotelRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Hotel not found"));

@@ -17,9 +17,11 @@ public class Address {
 
     @Column(name = "house_number")
     private int houseNumber;
+
     private String street;
     private String city;
     private String county;
+
     @Column(name = "post_code")
     private String postCode;
 

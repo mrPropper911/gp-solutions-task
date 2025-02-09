@@ -14,8 +14,10 @@ public class ArrivalTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "check_in")
     private String checkIn;
+
     @Column(name = "check_out")
     private String checkOut;
 

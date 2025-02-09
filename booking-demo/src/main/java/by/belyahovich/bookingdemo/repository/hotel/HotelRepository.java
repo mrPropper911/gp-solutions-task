@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HotelRepository {
-    Hotel save (Hotel hotel);
+    Hotel save(Hotel hotel);
 
     List<Hotel> findAll();
 

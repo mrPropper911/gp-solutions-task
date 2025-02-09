@@ -4,7 +4,7 @@ import by.belyahovich.bookingdemo.domain.Amenity;
 
 import java.util.Optional;
 
-public class AmenityRepositoryH2Impl implements AmenityRepository{
+public class AmenityRepositoryH2Impl implements AmenityRepository {
     private final AmenityJpaRepository amenityJpaRepository;
 
     public AmenityRepositoryH2Impl(AmenityJpaRepository amenityJpaRepository) {
