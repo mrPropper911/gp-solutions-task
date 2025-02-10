@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>by.belyahovich</groupId>
-    <artifactId>booking-demo</artifactId>
+    <artifactId>gp-solutions-task</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>booking-demo</name>
-    <description>booking-demo</description>
+    <name>gp-solutions-task</name>
+    <description>gp-solutions-task</description>
     <url/>
     <licenses>
         <license/>
