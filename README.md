@@ -17,7 +17,7 @@ Download Api and go to directory `booking-demo`
 
 ```shell
     git clone https://github.com/mrPropper911/gp-solutions-task.git
-    cd gp-solutions-task/booking-demo/
+    cd gp-solutions-task
 ```
 ### Start Api with in-memory *H2*
 
