@@ -1,0 +1,69 @@
+server:
+  port: 8092
+
+application:
+  title: Booking Demo Api
+  version: 1.0.0
+
+spring:
+  application:
+    name: booking-demo
+  profiles:
+    active: h2-test
+
+---
+# Profile for in-memory H2 test
+spring:
+  config:
+    activate:
+      on-profile: h2-test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-test.yaml
+
+---
+# Profile for test with MySql
+spring:
+  config:
+    activate:
+      on-profile: mysql-test
+  datasource:
+    url: jdbc:mysql://localhost:3306/booking_demo
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: qwer4321
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-test.yaml
+
+---
+# Profile for prod with MySql
+spring:
+  config:
+    activate:
+      on-profile: mysql-prod
+  datasource:
+    url: jdbc:mysql://localhost:3306/booking_demo
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
